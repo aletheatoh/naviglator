@@ -43,12 +43,16 @@ body {
   width: 220px;
   margin-left: 5%;
   margin-right: 2%;
+  height: 100%;
+  position: relative;
 }
 
 #person-2-box-wrapper {
   width: 220px;
   float: right;
   margin-right: 5%;
+  height: 100%;
+  position: relative;
 }
 
 .icon {
@@ -67,13 +71,17 @@ body {
   font-size: 13px;
   position: fixed;
   overflow-y: auto;
-  height: 500px;
+  height: 480px;
 }
 
 .g-map, .pano {
   width: 300px;
   height: 100px;
   position: relative;
+}
+
+.user-icon {
+  width: 80px;
 }
 
 .panel {
@@ -131,8 +139,9 @@ body {
 
 .clear {clear: both}
 .from-me {
-	color:white;
-	background:#0B93F6;
+	color:black;
+	/* background:#0B93F6; */
+  background: #90CAF9;
 	float: right;
   margin-right: 20px;
 
@@ -162,7 +171,7 @@ body {
 	}
 }
 .from-them {
-	background:#E5E5EA;
+	background:#FFCC80;
 	color: black;
   float: left;
   margin-left: 20px;
@@ -191,4 +200,12 @@ body {
 		border-bottom-right-radius: 10px;
 		-webkit-transform:translate(-30px, -2px);
 	}
+}
+
+.success-translation {
+  background: #64DD17;
+}
+
+.error-translation {
+  background: #FF3D00;
 }

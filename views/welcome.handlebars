@@ -11,10 +11,18 @@
 </head>
 <body>
 
-  <div class="ui top menu">
-    <div class="float right item">
+  <div class="ui labeled icon top fluid three item menu">
+    <a class="item">
+      <i class="pink question circle icon"></i>
+      Help
+    </a>
+    <div class="item">
       <img id="logo" src="img/logo.png"/>
     </div>
+    <a class="item" href="https://survey.az1.qualtrics.com/jfe/form/SV_a3mSAdFuFGMAz5j" target="_blank">
+      <i class="green check circle icon"></i>
+      Completed Interaction
+    </a>
   </div>
 
   <div id="container">
@@ -24,6 +32,9 @@
 
     <!-- Person 1 Control Box -->
     <div class="box wrapper" id="person-1-box-wrapper">
+      <div style="text-align:center;margin-top:5px">
+        <img class="user-icon" src="img/user1.svg"/>
+      </div>
       <!-- Choose Language -->
       <div class="ui form box-element">
         <div class="tiny field">
@@ -96,6 +107,9 @@
             <option value='cy'>Welsh</option>
             <option value='yua'>Yucatec Maya</option>
           </select>
+          <div id="person-1-language-prompt" class="ui red basic pointing label">
+            Please enter a language
+          </div>
         </div>
       </div>
 
@@ -116,7 +130,7 @@
         <div class="ui vertical animated button" id="chat-button-1" tabindex="0">
           <div class="hidden content" id="chat-1">Chat</div>
           <div class="visible content">
-            <i class="comment icon"></i>
+            <i class="chat icon"></i>
           </div>
         </div>
       </div>
@@ -163,7 +177,18 @@
         </div>
       </div>
 
-
+      <div id="person-1-report-error" class="box-element" style="text-align: center;bottom:-10; left:0;">
+        <div class="ui form">
+          <div class="field">
+            <label>Do you understand what the other person is saying?</label>
+          </div>
+          <div class="ui buttons">
+            <button id="person-1-understands" class="ui positive button">Yes</button>
+            <div class="or"></div>
+            <button id="person-1-doesnotunderstand" class="ui negative button">No</button>
+          </div>
+        </div>
+      </div>
 
 
       <script>
@@ -201,6 +226,9 @@
 
     <!-- Person 2 Control Box -->
     <div class="box wrapper" id="person-2-box-wrapper">
+      <div style="text-align:center;margin-top:5px">
+        <img class="user-icon" src="img/user2.svg"/>
+      </div>
       <!-- Choose Language -->
       <div class="ui form box-element">
         <div class="tiny field">
@@ -273,6 +301,9 @@
             <option value='cy'>Welsh</option>
             <option value='yua'>Yucatec Maya</option>
           </select>
+          <div id="person-2-language-prompt" class="ui red basic pointing label">
+            Please enter a language
+          </div>
         </div>
       </div>
 
@@ -293,7 +324,7 @@
         <div class="ui vertical animated button" id="chat-button-2" tabindex="0">
           <div class="hidden content" id="chat-2">Chat</div>
           <div class="visible content">
-            <i class="comment icon"></i>
+            <i class="chat icon"></i>
           </div>
         </div>
       </div>
@@ -337,6 +368,19 @@
             <i class="paper plane icon"></i>
             <span class="send-2">Send</span>
           </button>
+        </div>
+      </div>
+
+      <div id="person-2-report-error" class="box-element" style="text-align: center;bottom:-10; left:0;">
+        <div class="ui form">
+          <div class="field">
+            <label>Do you understand what the other person is saying?</label>
+          </div>
+          <div class="ui buttons">
+            <button id="person-2-understands" class="ui positive button">Yes</button>
+            <div class="or"></div>
+            <button id="person-2-doesnotunderstand" class="ui negative button">No</button>
+          </div>
         </div>
       </div>
 
@@ -401,10 +445,6 @@ var person_2_end_location;
 var curr_start_location;
 var curr_end_location;
 
-// var direction_inputs = document.querySelectorAll('.directions-input');
-// direction_inputs.forEach(function(item) {
-//   item.addEventListener('change', onChangeHandler);
-// });
 
 // map setup
 function initMap() {
@@ -525,6 +565,9 @@ function processSVData(data, status) {
 }
 
 $('#person-1-language-input').change(function() {
+
+  $('#person-1-language-prompt').css('display','none');
+
   person_1_language = $('#person-1-language-input').val();
   $.get( "http://localhost:3000/translate-controls?lang=" + person_1_language, function( data ) {
 
@@ -545,6 +588,9 @@ $('#person-1-language-input').change(function() {
 })
 
 $('#person-2-language-input').change(function() {
+
+  $('#person-2-language-prompt').css('display','none');
+
   person_2_language = $('#person-2-language-input').val();
   $.get( "http://localhost:3000/translate-controls?lang=" + person_2_language, function( data ) {
 
@@ -595,7 +641,7 @@ $('#person-1-submit-request').click(function() {
   $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_1_language, function( data ) {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
-    $('#chatbox').append('<div class="from-them"><p>' + res + '</p></div><div class="clear"></div>');
+    $('#chatbox').append('<div class="from-them"><p><i class="ui question icon"></i>&nbsp;' + res + '</p></div><div class="clear"></div>');
   });
 })
 
@@ -611,7 +657,7 @@ $('#person-2-submit-request').click(function() {
   $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_2_language, function( data ) {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
-    $('#chatbox').append('<div class="from-me"><p>' + res + '</p></div><div class="clear"></div>');
+    $('#chatbox').append('<div class="from-me"><p><i class="ui question icon"></i>&nbsp;' + res + '</p></div><div class="clear"></div>');
   });
 })
 
@@ -621,10 +667,8 @@ $('#person-1-submit-message').click(function() {
   var input = $('#person-1-message').val();
   $('#person-1-message').val('');
 
-  console.log("person 2 language is " + person_2_language);
-
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
-    $('#chatbox').append('<div class="from-them"><p>' + data + '</p></div><div class="clear"></div>');
+    $('#chatbox').append('<div class="from-them"><p><i class="ui chat icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
   });
 })
 
@@ -634,12 +678,46 @@ $('#person-2-submit-message').click(function() {
   var input = $('#person-2-message').val();
   $('#person-2-message').val('');
 
-  console.log("person 1 language is " + person_1_language);
-
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
-    $('#chatbox').append('<div class="from-me"><p>' + data + '</p></div><div class="clear"></div>');
+    $('#chatbox').append('<div class="from-me"><p><i class="ui chat icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
   });
 })
+
+$('#person-1-understands').click(function() {
+
+  var input = "I understand what you are saying";
+
+  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
+    $('#chatbox').append('<div class="from-them success-translation"><p><i class="ui smile icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+  });
+});
+
+$('#person-1-doesnotunderstand').click(function() {
+
+  var input = "I do not understand what you are saying";
+
+  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
+    $('#chatbox').append('<div class="from-them error-translation"><p><i class="ui frown icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+  });
+});
+
+$('#person-2-understands').click(function() {
+
+  var input = "I understand what you are saying";
+
+  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
+    $('#chatbox').append('<div class="from-me success-translation"><p><i class="ui smile icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+  });
+});
+
+$('#person-2-doesnotunderstand').click(function() {
+
+  var input = "I do not understand what you are saying";
+
+  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
+    $('#chatbox').append('<div class="from-me error-translation"><p><i class="ui frown icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+  });
+});
 
 $('.ui.dropdown')
 .dropdown()
