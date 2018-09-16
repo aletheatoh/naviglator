@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+       /* Set the size of the div element that contains the map */
+      .map {
+        height: 200px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+        display: block;
+       }
+       #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        font-size:12px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 12px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 10px;
+      }
+      #right-panel {
+        height: 100%;
+        float: right;
+        width: 300px;
+        overflow: auto;
+      }
+       @media print {
+        .map {
+          height: 500px;
+          margin: 0;
+        }
+        #right-panel {
+          float: none;
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <button id="button">Click</button>
+    <div class="map"></div>
+    <div class="map"></div>
+    <div id="right-panel"></div>
+    <!-- <button id="button"></button>
+    <div class="map"></div>
+    <div class="map"></div>
+    <div id="right-panel"></div> -->
+    <script>
+// Initialize and add the map
+
+function initMap() {
+
+  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+
+  // iterate through all maps
+
+  var list_of_maps = [].slice.call(document.getElementsByClassName('map'));
+
+  list_of_maps.forEach(function(item, index) {
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    var map = new google.maps.Map(item, {zoom: 7, center: chicago});
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('right-panel'));
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: chicago, map: map});
+
+    calcRoute(directionsService, directionsDisplay);
+
+    // $('button').click(function() {
+    //   // $('body').append(`<div class="map"></div>`);
+    //   calcRoute(directionsService, directionsDisplay);
+    // })
+  });
+}
+
+function calcRoute(directionsService, directionsDisplay) {
+
+  var request = {
+    origin: "Duke University",
+    destination: "UNC Chapel Hill",
+    travelMode: 'DRIVING'
+  };
+  directionsService.route(request, function(result, status) {
+    if (status == 'OK') {
+      directionsDisplay.setDirections(result);
+    }
+  });
+}
+
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8JPMWkUVF6XwKAyuwRLZmQcSH88EruB4&callback=initMap">
+    </script>
+  </body>
+</html>

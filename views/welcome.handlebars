@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Naviglator</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+</head>
+<body>
+
+  <div class="ui top menu">
+    <div class="float right item">
+      <img id="logo" src="img/logo.png"/>
+    </div>
+  </div>
+
+  <div id="container">
+    <div id="header">
+      <!-- <img id="logo" src="img/logo.png"/> -->
+    </div>
+
+    <!-- Person 1 Control Box -->
+    <div class="box wrapper" id="person-1-box-wrapper">
+      <!-- Choose Language -->
+      <div class="ui form box-element">
+        <div class="tiny field">
+          <label id="language-1"><img class="icon" src="img/language.svg"/>Language</label>
+          <select class="ui person-1 search dropdown" id="person-1-language-input">
+            <option value="">Select Language</option>
+            <option value="af">Afrikaans</option>
+            <option value="ar">Arabic</option>
+            <option value="apc">Arabic, Levantine</option>
+            <option value="bn">Bangla</option>
+            <option value="bs">Bosnian (Latin)</option>
+            <option value="bg">Bulgarian</option>
+            <option value="yue">Cantonese (Traditional)</option>
+            <option value="ca">Catalan</option>
+            <option value="zh-Hans">Chinese Simplified</option>
+            <option value="zh-Hant">Chinese Traditional</option>
+            <option value="hr">Croatian</option>
+            <option value="cs">Czech</option>
+            <option value="da">Danish</option>
+            <option value="dl">Dutch</option>
+            <option value="en">English</option>
+            <option value="et">Estonian</option>
+            <option value="fj">Fijian</option>
+            <option value="fil">Filipino</option>
+            <option value="fi">Finnish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="el">Greek</option>
+            <option value="ht">Haitian Creole</option>
+            <option value='he'>Hebrew</option>
+            <option value='hi'>Hindi</option>
+            <option value='mww'>Hmong Daw</option>
+            <option value='hu'>Hungarian</option>
+            <option value='is'>Icelandic</option>
+            <option value='id'>Indonesian</option>
+            <option value='it'>Italian</option>
+            <option value='ja'>Japanese</option>
+            <option value='sw'>Kiswahili</option>
+            <option value='tlh'>Klingon</option>
+            <option value='tlh-Qaak'>Klingon (plqaD)</option>
+            <option value='ko'>Korean</option>
+            <option value='lv'>Latvian</option>
+            <option value='lt'>Lithuanian</option>
+            <option value='mg'>Malagasy</option>
+            <option value='ms'>Malay</option>
+            <option value='mt'>Maltese</option>
+            <option value='nb'>Norwegian</option>
+            <option value='fa'>Persian</option>
+            <option value='pl'>Polish</option>
+            <option value='pt'>Portuguese</option>
+            <option value='otq'>Queretaro Otomi</option>
+            <option value='ro'>Romanian</option>
+            <option value='ru'>Russian</option>
+            <option value='sm'>Samoan</option>
+            <option value='sr-Cyrl'>Serbian (Cyrillic)</option>
+            <option value='sr-Latn'>Serbian (Latin)</option>
+            <option value='sk'>Slovak</option>
+            <option value='sl'>Slovenian</option>
+            <option value='es'>Spanish</option>
+            <option value='sv'>Swedish</option>
+            <option value='ty'>Tahitian</option>
+            <option value='ta'>Tamil</option>
+            <option value='te'>Telugu</option>
+            <option value='th'>Thai</option>
+            <option value='to'>Tongan</option>
+            <option value='tr'>Turkish</option>
+            <option value='uk'>Ukrainian</option>
+            <option value='ur'>Urdu</option>
+            <option value='vi'>Vietnamese</option>
+            <option value='cy'>Welsh</option>
+            <option value='yua'>Yucatec Maya</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 3 types of inputs: 1) Request for Directions (display form) 2) Send Directions (Google Maps) 3) Free Text -->
+      <div id="select-input-type" class="box-element" style="text-align:center">
+        <div class="ui vertical animated button" id="ask-directions-button-1" tabindex="0">
+          <div class="hidden content" id="ask-1">Ask</div>
+          <div class="visible content">
+            <i class="question icon"></i>
+          </div>
+        </div>
+        <div class="ui vertical animated button" id="send-directions-button-1" tabindex="0">
+          <div class="hidden content send-1">Send</div>
+          <div class="visible content">
+            <i class="map signs icon"></i>
+          </div>
+        </div>
+        <div class="ui vertical animated button" id="chat-button-1" tabindex="0">
+          <div class="hidden content" id="chat-1">Chat</div>
+          <div class="visible content">
+            <i class="comment icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display the corresponding type of input form -->
+      <div id="ask-directions-box-1" class="box-element" style="display:none">
+        <div class="ui form">
+          <div class="field">
+            <label id="start-label-1">Start location</label>
+            <input class="directions-input" type="text" id="start-location-1" name="start-location" placeholder="123 Street">
+          </div>
+          <div class="field">
+            <label id="end-label-1">End location</label>
+            <input class="directions-input" type="text" id="end-location-1" name="end-location" placeholder="123 Street">
+          </div>
+          <button class="ui compact button" id="person-1-submit-request">
+            <i class="paper plane icon"></i>
+            <span class="send-1">Send</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="send-directions-box-1" class="box-element" style="display:none;text-align:center">
+        <button class="ui tiny button" id="person-1-send-gmaps">
+          <i class="location arrow icon"></i>
+          <span id="directions-1">Directions</span>
+        </button>
+        <button class="ui tiny button" id="person-1-send-streetview">
+          <i class="street view icon"></i>
+          <span id="streetview-label-1">Street View</span>
+        </button>
+      </div>
+
+      <div id="input-box-1" class="box-element" style="display:none">
+        <div class="ui form">
+          <div class="field">
+            <label id="sendmsg-1">Send a message</label>
+            <textarea id="person-1-message" rows="2"></textarea>
+          </div>
+          <button class="ui compact button" id="person-1-submit-message">
+            <i class="paper plane icon"></i>
+            <span class="send-1">Send</span>
+          </button>
+        </div>
+      </div>
+
+
+
+
+      <script>
+
+
+      $('#ask-directions-button-1').click(function() {
+        $('#ask-directions-box-1').css('display','');
+        $('#send-directions-box-1').css('display','none');
+        $('#input-box-1').css('display','none');
+      });
+
+      $('#send-directions-button-1').click(function() {
+        $('#send-directions-box-1').css('display','');
+        $('#input-box-1').css('display','none');
+        $('#ask-directions-box-1').css('display','none');
+      });
+
+      $('#chat-button-1').click(function() {
+        $('#input-box-1').css('display','');
+        $('#send-directions-box-1').css('display','none');
+        $('#ask-directions-box-1').css('display','none');
+      });
+
+      </script>
+
+    </div>
+
+    <div class="ui raised text container segment wrapper">
+
+      <div id="chatbox">
+      </div>
+
+
+    </div>
+
+    <!-- Person 2 Control Box -->
+    <div class="box wrapper" id="person-2-box-wrapper">
+      <!-- Choose Language -->
+      <div class="ui form box-element">
+        <div class="tiny field">
+          <label id="language-2"><img class="icon" src="img/language.svg"/>Language</label>
+          <select class="ui person-2 search dropdown" id="person-2-language-input">
+            <option value="">Select Language</option>
+            <option value="af">Afrikaans</option>
+            <option value="ar">Arabic</option>
+            <option value="apc">Arabic, Levantine</option>
+            <option value="bn">Bangla</option>
+            <option value="bs">Bosnian (Latin)</option>
+            <option value="bg">Bulgarian</option>
+            <option value="yue">Cantonese (Traditional)</option>
+            <option value="ca">Catalan</option>
+            <option value="zh-Hans">Chinese Simplified</option>
+            <option value="zh-Hant">Chinese Traditional</option>
+            <option value="hr">Croatian</option>
+            <option value="cs">Czech</option>
+            <option value="da">Danish</option>
+            <option value="dl">Dutch</option>
+            <option value="en">English</option>
+            <option value="et">Estonian</option>
+            <option value="fj">Fijian</option>
+            <option value="fil">Filipino</option>
+            <option value="fi">Finnish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="el">Greek</option>
+            <option value="ht">Haitian Creole</option>
+            <option value='he'>Hebrew</option>
+            <option value='hi'>Hindi</option>
+            <option value='mww'>Hmong Daw</option>
+            <option value='hu'>Hungarian</option>
+            <option value='is'>Icelandic</option>
+            <option value='id'>Indonesian</option>
+            <option value='it'>Italian</option>
+            <option value='ja'>Japanese</option>
+            <option value='sw'>Kiswahili</option>
+            <option value='tlh'>Klingon</option>
+            <option value='tlh-Qaak'>Klingon (plqaD)</option>
+            <option value='ko'>Korean</option>
+            <option value='lv'>Latvian</option>
+            <option value='lt'>Lithuanian</option>
+            <option value='mg'>Malagasy</option>
+            <option value='ms'>Malay</option>
+            <option value='mt'>Maltese</option>
+            <option value='nb'>Norwegian</option>
+            <option value='fa'>Persian</option>
+            <option value='pl'>Polish</option>
+            <option value='pt'>Portuguese</option>
+            <option value='otq'>Queretaro Otomi</option>
+            <option value='ro'>Romanian</option>
+            <option value='ru'>Russian</option>
+            <option value='sm'>Samoan</option>
+            <option value='sr-Cyrl'>Serbian (Cyrillic)</option>
+            <option value='sr-Latn'>Serbian (Latin)</option>
+            <option value='sk'>Slovak</option>
+            <option value='sl'>Slovenian</option>
+            <option value='es'>Spanish</option>
+            <option value='sv'>Swedish</option>
+            <option value='ty'>Tahitian</option>
+            <option value='ta'>Tamil</option>
+            <option value='te'>Telugu</option>
+            <option value='th'>Thai</option>
+            <option value='to'>Tongan</option>
+            <option value='tr'>Turkish</option>
+            <option value='uk'>Ukrainian</option>
+            <option value='ur'>Urdu</option>
+            <option value='vi'>Vietnamese</option>
+            <option value='cy'>Welsh</option>
+            <option value='yua'>Yucatec Maya</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 3 types of inputs: 1) Request for Directions (display form) 2) Send Directions (Google Maps) 3) Free Text -->
+      <div id="select-input-type" class="box-element" style="text-align:center">
+        <div class="ui vertical animated button" id="ask-directions-button-2" tabindex="0">
+          <div class="hidden content" id="ask-2">Ask</div>
+          <div class="visible content">
+            <i class="question icon"></i>
+          </div>
+        </div>
+        <div class="ui vertical animated button" id="send-directions-button-2" tabindex="0">
+          <div class="hidden content send-2">Send</div>
+          <div class="visible content">
+            <i class="map signs icon"></i>
+          </div>
+        </div>
+        <div class="ui vertical animated button" id="chat-button-2" tabindex="0">
+          <div class="hidden content" id="chat-2">Chat</div>
+          <div class="visible content">
+            <i class="comment icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display the corresponding type of input form -->
+      <div id="ask-directions-box-2" class="box-element" style="display:none">
+        <div class="ui form">
+          <div class="field">
+            <label id="start-label-2">Start location</label>
+            <input class="directions-input" type="text" id="start-location-2" name="start-location" placeholder="123 Street">
+          </div>
+          <div class="field">
+            <label id="end-label-2">End location</label>
+            <input class="directions-input" type="text" id="end-location-2" name="end-location" placeholder="123 Street">
+          </div>
+          <button class="ui compact button" id="person-2-submit-request">
+            <i class="paper plane icon"></i>
+            <span class="send-2">Send</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="send-directions-box-2" class="box-element" style="display:none;text-align:center">
+        <button class="ui tiny button" id="person-2-send-gmaps">
+          <i class="location arrow icon"></i>
+          <span id="directions-2">Directions</span>
+        </button>
+        <button class="ui tiny button" id="person-2-send-streetview">
+          <i class="street view icon"></i>
+          <span id="streetview-label-2">Street View</span>
+        </button>
+      </div>
+
+      <div id="input-box-2" class="box-element" style="display:none">
+        <div class="ui form">
+          <div class="field">
+            <label id="sendmsg-2">Send a message</label>
+            <textarea id="person-2-message" rows="2"></textarea>
+          </div>
+          <button class="ui compact button" id="person-2-submit-message">
+            <i class="paper plane icon"></i>
+            <span class="send-2">Send</span>
+          </button>
+        </div>
+      </div>
+
+
+      <script>
+
+      $('#ask-directions-button-2').click(function() {
+        $('#ask-directions-box-2').css('display','');
+        $('#send-directions-box-2').css('display','none');
+        $('#input-box-2').css('display','none');
+      });
+
+      $('#send-directions-button-2').click(function() {
+        $('#send-directions-box-2').css('display','');
+        $('#input-box-2').css('display','none');
+        $('#ask-directions-box-2').css('display','none');
+      });
+
+      $('#chat-button-2').click(function() {
+        $('#input-box-2').css('display','');
+        $('#send-directions-box-2').css('display','none');
+        $('#ask-directions-box-2').css('display','none');
+      });
+
+      </script>
+
+    </div>
+
+
+<div class="wrapper">
+
+</div>
+
+<!-- End of container -->
+</div>
+
+</body>
+<div id="outer">
+  <div class="g-map" id="map-clone"></div>
+  <div id="right-panel"></div>
+  <div id="pano-clone"></div>
+</div>
+
+<script>
+
+// global variables
+
+var panorama;
+
+var person_1_language;
+var person_1_map_num = 1;
+var person_1_streetview_num = 1;
+var person_1_start_location;
+var person_1_end_location;
+
+var person_2_language;
+var person_2_map_num = 1;
+var person_2_streetview_num = 1;
+var person_2_start_location;
+var person_2_end_location;
+
+var curr_start_location;
+var curr_end_location;
+
+// var direction_inputs = document.querySelectorAll('.directions-input');
+// direction_inputs.forEach(function(item) {
+//   item.addEventListener('change', onChangeHandler);
+// });
+
+// map setup
+function initMap() {
+
+  start = 'Duke University';
+  end = "UNC Chapel Hill";
+
+  console.log('location is now' + start);
+
+  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+  // iterate through all maps
+  var list_of_maps = [].slice.call(document.getElementsByClassName('g-map'));
+
+  list_of_maps.forEach(function(item, index) {
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    var map = new google.maps.Map(item, {zoom: 7, center: chicago});
+    directionsDisplay.setMap(map);
+
+    var marker = new google.maps.Marker({position: chicago, map: map});
+
+    calcRoute(directionsService, directionsDisplay, start, end);
+
+    // add event listener here
+    $('#person-1-send-gmaps').click(function() {
+
+      curr_start_location = person_2_start_location;
+      curr_end_location = person_2_end_location;
+      // clone panel
+      var cloned_panel = $('#right-panel').clone();
+      cloned_panel.addClass('panel');
+      cloned_panel.attr('id', `person1-panel-${person_1_map_num}`);
+      $('#outer').append(cloned_panel);
+      directionsDisplay.setPanel(document.getElementById(`person1-panel-${person_1_map_num}`));
+      $('#chatbox').append(`<div class="from-them" id="person1-map-${person_1_map_num}"></div><div class="clear"></div>`);
+      var cloned_map = $('#map-clone').clone();
+      cloned_map.css('display','');
+      cloned_map.removeAttr('id', 'map-clone');
+      cloned_map.children(":first").css('position','relative');
+
+      $(`#person1-map-${person_1_map_num}`).append(cloned_map);
+      $(`#person1-map-${person_1_map_num}`).append($(`#person1-panel-${person_1_map_num}`));
+      $(`#person1-panel-${person_1_map_num}`).css('position','relative');
+
+      person_1_map_num += 1;
+    })
+
+    $('#person-2-send-gmaps').click(function() {
+
+      curr_start_location = person_1_start_location;
+      curr_end_location = person_1_end_location;
+
+      // clone panel
+      var cloned_panel = $('#right-panel').clone();
+      cloned_panel.addClass('panel');
+      cloned_panel.attr('id', `person2-panel-${person_2_map_num}`);
+      $('#outer').append(cloned_panel);
+      directionsDisplay.setPanel(document.getElementById(`person2-panel-${person_2_map_num}`));
+      $('#chatbox').append(`<div class="from-me" id="person2-map-${person_2_map_num}"></div><div class="clear"></div>`);
+      var cloned_map = $('#map-clone').clone();
+      cloned_map.css('display','');
+      cloned_map.removeAttr('id', 'map-clone');
+      cloned_map.children(":first").css('position','relative');
+
+      $(`#person2-map-${person_2_map_num}`).append(cloned_map);
+      $(`#person2-map-${person_2_map_num}`).append($(`#person2-panel-${person_2_map_num}`));
+      $(`#person2-panel-${person_2_map_num}`).css('position','relative');
+
+      person_2_map_num += 1;
+    })
+  });
+}
+
+function calcRoute(directionsService, directionsDisplay, curr_start_location, curr_end_location) {
+
+  var request = {
+    origin: curr_start_location,
+    destination: curr_end_location,
+    travelMode: 'DRIVING'
+  };
+
+  directionsService.route(request, function(result, status) {
+    if (status == 'OK') {
+      directionsDisplay.setDirections(result);
+    }
+  });
+}
+
+function processSVData(data, status) {
+  if (status === 'OK') {
+    var marker = new google.maps.Marker({
+      position: data.location.latLng,
+      map: map,
+      title: data.location.description
+    });
+
+    panorama.setPano(data.location.pano);
+    panorama.setPov({
+      heading: 270,
+      pitch: 0
+    });
+    panorama.setVisible(true);
+
+    marker.addListener('click', function() {
+      var markerPanoID = data.location.pano;
+      // Set the Pano to use the passed panoID.
+      panorama.setPano(markerPanoID);
+      panorama.setPov({
+        heading: 270,
+        pitch: 0
+      });
+      panorama.setVisible(true);
+    });
+  } else {
+    console.error('Street View data not found for this location.');
+  }
+}
+
+$('#person-1-language-input').change(function() {
+  person_1_language = $('#person-1-language-input').val();
+  $.get( "http://localhost:3000/translate-controls?lang=" + person_1_language, function( data ) {
+
+    // translate control buttons
+    $('#ask-1').text(data.ask_translated);
+    $('.send-1').text(data.send_translated);
+    $('#chat-1').text(data.chat_translated);
+    $('#start-label-1').text(data.start_translated);
+    $('#end-label-1').text(data.end_translated);
+    $('#directions-1').text(data.directions_translated);
+    $('#streetview-label-1').text(data.streetview_translated);
+    $('#sendmsg-1').text(data.sendmsg_translated);
+
+    var person_1_language_full = $('div.ui.person-1.dropdown.selection > div.text').text();
+    $('#language-1').html('<img class="icon" src="img/language.svg"/>Language: ' + person_1_language_full);
+
+  });
+})
+
+$('#person-2-language-input').change(function() {
+  person_2_language = $('#person-2-language-input').val();
+  $.get( "http://localhost:3000/translate-controls?lang=" + person_2_language, function( data ) {
+
+    // translate control buttons
+    $('#ask-2').text(data.ask_translated);
+    $('.send-2').text(data.send_translated);
+    $('#chat-2').text(data.chat_translated);
+    $('#start-label-2').text(data.start_translated);
+    $('#end-label-2').text(data.end_translated);
+    $('#directions-2').text(data.directions_translated);
+    $('#streetview-label-2').text(data.streetview_translated);
+    $('#sendmsg-2').text(data.sendmsg_translated);
+
+    var person_2_language_full = $('div.ui.person-2.dropdown.selection > div.text').text();
+    $('#language-2').html('<img class="icon" src="img/language.svg"/>Language: ' + person_2_language_full);
+
+  });
+})
+
+// if person 1 sends streetview
+// $('#person-1-send-streetview').click(function() {
+//   var berkeley = {lat: 37.869085, lng: -122.254775};
+//
+//   $('#chatbox').append(`<div class="from-them" id="streetview-${person_1_streetview_num}"></div><div class="clear"></div>`);
+//
+//   var cloned_pano = $('#pano-clone').clone();
+//   // cloned_pano.css('display','');
+//   cloned_pano.addClass('pano');
+//   cloned_pano.attr('id', `streetview-pano-${person_1_streetview_num}`);
+//   $(`#streetview-${person_1_streetview_num}`).append(cloned_pano);
+//
+//   var sv = new google.maps.StreetViewService();
+//   panorama = new google.maps.StreetViewPanorama(document.getElementById(`streetview-pano-${person_1_streetview_num}`));
+//   sv.getPanorama({location: berkeley, radius: 50}, processSVData);
+//
+//   person_1_streetview_num += 1;
+// });
+
+// if person 1 requests for directions
+$('#person-1-submit-request').click(function() {
+  var start_location = $('#start-location-1').val();
+  var end_location = $('#end-location-1').val();
+
+  person_1_start_location = start_location;
+  person_1_end_location = end_location;
+
+  var request = 'I need directions to get from ' + '123' + ' to ' + '456';
+  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_1_language, function( data ) {
+    var res = data.replace('123','<b>' + start_location + '</b>');
+    var res = res.replace('456','<b>' + end_location + '</b>');
+    $('#chatbox').append('<div class="from-them"><p>' + res + '</p></div><div class="clear"></div>');
+  });
+})
+
+// if person 2 requests for directions
+$('#person-2-submit-request').click(function() {
+  var start_location = $('#start-location-2').val();
+  var end_location = $('#end-location-2').val();
+
+  person_2_start_location = start_location;
+  person_2_end_location = end_location;
+
+  var request = 'I need directions to get from ' + '123' + ' to ' + '456';
+  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_2_language, function( data ) {
+    var res = data.replace('123','<b>' + start_location + '</b>');
+    var res = res.replace('456','<b>' + end_location + '</b>');
+    $('#chatbox').append('<div class="from-me"><p>' + res + '</p></div><div class="clear"></div>');
+  });
+})
+
+// if Person 1 submits a chat message
+$('#person-1-submit-message').click(function() {
+  // get input data
+  var input = $('#person-1-message').val();
+  $('#person-1-message').val('');
+
+  console.log("person 2 language is " + person_2_language);
+
+  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
+    $('#chatbox').append('<div class="from-them"><p>' + data + '</p></div><div class="clear"></div>');
+  });
+})
+
+// if Person 2 submits a chat message
+$('#person-2-submit-message').click(function() {
+  // get input data
+  var input = $('#person-2-message').val();
+  $('#person-2-message').val('');
+
+  console.log("person 1 language is " + person_1_language);
+
+  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
+    $('#chatbox').append('<div class="from-me"><p>' + data + '</p></div><div class="clear"></div>');
+  });
+})
+
+$('.ui.dropdown')
+.dropdown()
+;
+
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8JPMWkUVF6XwKAyuwRLZmQcSH88EruB4&callback=initMap">
+    </script>
+
+</html>
