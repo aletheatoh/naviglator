@@ -12,5 +12,12 @@
     "https": "^1.0.0",
     "method-override": "^3.0.0",
     "request": "^2.88.0"
-  }
+  },
+  "engines": {
+    "node": "^10.5.0"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ]
 }

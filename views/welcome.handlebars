@@ -11,10 +11,31 @@
 </head>
 <body>
 
+  <script>
+  // global variables
+  var panorama;
+
+  var person_1_language;
+  var person_1_map_num = 1;
+  var person_1_streetview_num = 1;
+  var person_1_start_location;
+  var person_1_end_location;
+
+  var person_2_language;
+  var person_2_map_num = 1;
+  var person_2_streetview_num = 1;
+  var person_2_start_location;
+  var person_2_end_location;
+
+  var curr_start_location;
+  var curr_end_location;
+
+  </script>
+
   <div class="ui labeled icon top fluid three item menu">
-    <a class="item">
+    <a id="info-button" class="item">
       <i class="pink question circle icon"></i>
-      Help
+      How this Works
     </a>
     <div class="item">
       <img id="logo" src="img/logo.png"/>
@@ -177,15 +198,22 @@
         </div>
       </div>
 
+      <div id="person-1-warning" class="ui red small message" style="display:none;">
+        <i class="close icon"></i>
+        <div class="header">
+        </div>
+        <p>Please wait for User 2 to choose his/her language
+      </p></div>
+
       <div id="person-1-report-error" class="box-element" style="text-align: center;bottom:-10; left:0;">
         <div class="ui form">
           <div class="field">
             <label>Do you understand what the other person is saying?</label>
           </div>
           <div class="ui buttons">
-            <button id="person-1-understands" class="ui positive button">Yes</button>
+            <button id="person-1-understands" class="ui compact positive button">Yes</button>
             <div class="or"></div>
-            <button id="person-1-doesnotunderstand" class="ui negative button">No</button>
+            <button id="person-1-doesnotunderstand" class="ui compact negative button">No</button>
           </div>
         </div>
       </div>
@@ -193,23 +221,37 @@
 
       <script>
 
-
       $('#ask-directions-button-1').click(function() {
-        $('#ask-directions-box-1').css('display','');
-        $('#send-directions-box-1').css('display','none');
-        $('#input-box-1').css('display','none');
+        if (person_2_language != null) {
+          $('#ask-directions-box-1').css('display','');
+          $('#send-directions-box-1').css('display','none');
+          $('#input-box-1').css('display','none');
+        }
+        else {
+          $('#person-1-warning').css('display','');
+        }
       });
 
       $('#send-directions-button-1').click(function() {
-        $('#send-directions-box-1').css('display','');
-        $('#input-box-1').css('display','none');
-        $('#ask-directions-box-1').css('display','none');
+        if (person_2_language != null) {
+          $('#send-directions-box-1').css('display','');
+          $('#input-box-1').css('display','none');
+          $('#ask-directions-box-1').css('display','none');
+        }
+        else {
+          $('#person-1-warning').css('display','');
+        }
       });
 
       $('#chat-button-1').click(function() {
-        $('#input-box-1').css('display','');
-        $('#send-directions-box-1').css('display','none');
-        $('#ask-directions-box-1').css('display','none');
+        if (person_2_language != null) {
+          $('#input-box-1').css('display','');
+          $('#send-directions-box-1').css('display','none');
+          $('#ask-directions-box-1').css('display','none');
+        }
+        else {
+          $('#person-1-warning').css('display','');
+        }
       });
 
       </script>
@@ -371,15 +413,22 @@
         </div>
       </div>
 
+      <div id="person-2-warning" class="ui red small message" style="display:none;">
+        <i class="close icon"></i>
+        <div class="header">
+        </div>
+        <p>Please wait for User 1 to choose his/her language
+      </p></div>
+
       <div id="person-2-report-error" class="box-element" style="text-align: center;bottom:-10; left:0;">
         <div class="ui form">
           <div class="field">
             <label>Do you understand what the other person is saying?</label>
           </div>
           <div class="ui buttons">
-            <button id="person-2-understands" class="ui positive button">Yes</button>
+            <button id="person-2-understands" class="ui compact positive button">Yes</button>
             <div class="or"></div>
-            <button id="person-2-doesnotunderstand" class="ui negative button">No</button>
+            <button id="person-2-doesnotunderstand" class="ui compact negative button">No</button>
           </div>
         </div>
       </div>
@@ -388,21 +437,36 @@
       <script>
 
       $('#ask-directions-button-2').click(function() {
-        $('#ask-directions-box-2').css('display','');
-        $('#send-directions-box-2').css('display','none');
-        $('#input-box-2').css('display','none');
+        if (person_1_language != null) {
+          $('#ask-directions-box-2').css('display','');
+          $('#send-directions-box-2').css('display','none');
+          $('#input-box-2').css('display','none');
+        }
+        else {
+          $('#person-2-warning').css('display','');
+        }
       });
 
       $('#send-directions-button-2').click(function() {
-        $('#send-directions-box-2').css('display','');
-        $('#input-box-2').css('display','none');
-        $('#ask-directions-box-2').css('display','none');
+        if (person_1_language != null) {
+          $('#send-directions-box-2').css('display','');
+          $('#input-box-2').css('display','none');
+          $('#ask-directions-box-2').css('display','none');
+        }
+        else {
+          $('#person-2-warning').css('display','');
+        }
       });
 
       $('#chat-button-2').click(function() {
-        $('#input-box-2').css('display','');
-        $('#send-directions-box-2').css('display','none');
-        $('#ask-directions-box-2').css('display','none');
+        if (person_1_language != null) {
+          $('#input-box-2').css('display','');
+          $('#send-directions-box-2').css('display','none');
+          $('#ask-directions-box-2').css('display','none');
+        }
+        else {
+          $('#person-2-warning').css('display','');
+        }
       });
 
       </script>
@@ -410,9 +474,33 @@
     </div>
 
 
-<div class="wrapper">
+    <div class="ui modal">
+      <i class="close icon"></i>
+      <div class="header">
+        Profile Picture
+      </div>
+      <div class="image content">
+        <div class="ui medium image">
+          <img src="/images/avatar/large/chris.jpg">
+        </div>
+        <div class="description">
+          <div class="ui header">We've auto-chosen a profile image for you.</div>
+          <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+          <p>Is it okay to use this photo?</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui black deny button">
+          Nope
+        </div>
+        <div class="ui positive right labeled icon button">
+          Yep, that's me
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
 
-</div>
+
 
 <!-- End of container -->
 </div>
@@ -426,25 +514,11 @@
 
 <script>
 
-// global variables
-
-var panorama;
-
-var person_1_language;
-var person_1_map_num = 1;
-var person_1_streetview_num = 1;
-var person_1_start_location;
-var person_1_end_location;
-
-var person_2_language;
-var person_2_map_num = 1;
-var person_2_streetview_num = 1;
-var person_2_start_location;
-var person_2_end_location;
-
-var curr_start_location;
-var curr_end_location;
-
+$('#info-button').click(function() {
+  $('.ui.modal')
+  .modal('show')
+;
+})
 
 // map setup
 function initMap() {
@@ -566,6 +640,8 @@ function processSVData(data, status) {
 
 $('#person-1-language-input').change(function() {
 
+  $('#person-2-warning').css('display','none');
+
   $('#person-1-language-prompt').css('display','none');
 
   person_1_language = $('#person-1-language-input').val();
@@ -582,12 +658,14 @@ $('#person-1-language-input').change(function() {
     $('#sendmsg-1').text(data.sendmsg_translated);
 
     var person_1_language_full = $('div.ui.person-1.dropdown.selection > div.text').text();
-    $('#language-1').html('<img class="icon" src="img/language.svg"/>Language: ' + person_1_language_full);
+    $('#language-1').html('<img class="icon" src="img/language.svg"/>Language: ' + `<span style="color:#FFA726;">` + person_1_language_full + '</span>');
 
   });
 })
 
 $('#person-2-language-input').change(function() {
+
+  $('#person-1-warning').css('display','none');
 
   $('#person-2-language-prompt').css('display','none');
 
@@ -605,7 +683,7 @@ $('#person-2-language-input').change(function() {
     $('#sendmsg-2').text(data.sendmsg_translated);
 
     var person_2_language_full = $('div.ui.person-2.dropdown.selection > div.text').text();
-    $('#language-2').html('<img class="icon" src="img/language.svg"/>Language: ' + person_2_language_full);
+    $('#language-2').html('<img class="icon" src="img/language.svg"/>Language: ' + `<span style="color:#42A5F5;">` + person_2_language_full + '</span>');
 
   });
 })
@@ -638,10 +716,10 @@ $('#person-1-submit-request').click(function() {
   person_1_end_location = end_location;
 
   var request = 'I need directions to get from ' + '123' + ' to ' + '456';
-  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_1_language, function( data ) {
+  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_2_language, function( data ) {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
-    $('#chatbox').append('<div class="from-them"><p><i class="ui question icon"></i>&nbsp;' + res + '</p></div><div class="clear"></div>');
+    $('#chatbox').append(`<div class="from-them"><p><i class="ui question icon"></i>&nbsp;${res}<p/><p>${start_location}&nbsp;<i class="ui chevron circle right icon"></i>&nbsp;${end_location}</p></div><div class="clear"></div>`);
   });
 })
 
@@ -654,10 +732,10 @@ $('#person-2-submit-request').click(function() {
   person_2_end_location = end_location;
 
   var request = 'I need directions to get from ' + '123' + ' to ' + '456';
-  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_2_language, function( data ) {
+  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_1_language, function( data ) {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
-    $('#chatbox').append('<div class="from-me"><p><i class="ui question icon"></i>&nbsp;' + res + '</p></div><div class="clear"></div>');
+    $('#chatbox').append(`<div class="from-me"><p><i class="ui question icon"></i>&nbsp;${res}<p/><p>${start_location}&nbsp;<i class="ui chevron circle right icon"></i>&nbsp;${end_location}</p></div><div class="clear"></div>`);
   });
 })
 
@@ -667,9 +745,11 @@ $('#person-1-submit-message').click(function() {
   var input = $('#person-1-message').val();
   $('#person-1-message').val('');
 
+  // if person 2 has entered a language, proceed
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
     $('#chatbox').append('<div class="from-them"><p><i class="ui chat icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
   });
+
 })
 
 // if Person 2 submits a chat message
@@ -721,6 +801,15 @@ $('#person-2-doesnotunderstand').click(function() {
 
 $('.ui.dropdown')
 .dropdown()
+;
+
+$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
 ;
 
 </script>
