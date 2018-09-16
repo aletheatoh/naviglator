@@ -35,7 +35,7 @@
   <div class="ui labeled icon top fluid three item menu">
     <a id="info-button" class="item">
       <i class="pink question circle icon"></i>
-      How this Works
+      Help
     </a>
     <div class="item">
       <img id="logo" src="img/logo.png"/>
@@ -474,28 +474,62 @@
     </div>
 
 
-    <div class="ui modal">
+    <div class="ui tiny modal">
       <i class="close icon"></i>
       <div class="header">
-        Profile Picture
+        How this works
       </div>
       <div class="image content">
-        <div class="ui medium image">
-          <img src="/images/avatar/large/chris.jpg">
+        <div class="ui medium icon">
+          <i class="ui big blue language icon"></i>
         </div>
         <div class="description">
-          <div class="ui header">We've auto-chosen a profile image for you.</div>
-          <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-          <p>Is it okay to use this photo?</p>
+          <p>Select your primary language</p>
+        </div>
+      </div>
+      <div class="image content">
+        <div class="ui medium icon">
+          <i class="ui big pink question icon"></i>
+        </div>
+        <div class="description">
+          <p>Ask your partner for directions</p>
+        </div>
+      </div>
+      <div class="image content">
+        <div class="ui medium icon">
+          <i class="ui big green map signs icon"></i>
+        </div>
+        <div class="description">
+          <p>Send your partner Google Maps Directions or a Google Street View</p>
+        </div>
+      </div>
+      <div class="image content">
+        <div class="ui medium icon">
+          <i class="ui big orange chat icon"></i>
+        </div>
+        <div class="description">
+          <p>Chat with your partner and/or provide more detailed instructions</p>
+        </div>
+      </div>
+      <div class="image content">
+        <div class="ui medium icon">
+          <i class="ui big red thumbs up icon"></i>
+        </div>
+        <div class="description">
+          <p>Provide feedback on the translation quality</p>
+        </div>
+      </div>
+      <div class="image content">
+        <div class="ui medium icon">
+          <i class="ui big yellow ellipsis horizontal icon"></i>
+        </div>
+        <div class="description">
+          <p>Each user's messages will be translated into the other user’s primary language. Please note that the start/end locations for the directions and street view services has been hardcoded in this prototype.</p>
         </div>
       </div>
       <div class="actions">
-        <div class="ui black deny button">
-          Nope
-        </div>
-        <div class="ui positive right labeled icon button">
-          Yep, that's me
-          <i class="checkmark icon"></i>
+        <div class="ui deny button">
+          Ok
         </div>
       </div>
     </div>
@@ -529,7 +563,7 @@ $('#info-button').click(function() {
 function initMap() {
 
   start = 'Duke University';
-  end = "UNC Chapel Hill";
+  end = "Namu Durham";
 
   console.log('location is now' + start);
 
