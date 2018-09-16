@@ -173,7 +173,23 @@ app.get('/translate-controls', (request, response) => {
 
                                   json.sendmsg_translated = JSON.parse(`"${data}"`);
 
-                                  response.send(json)
+                                  http.get('http://localhost:3000/translate?input=Do you understand what the other person is saying&lang=' + lang, (res9) => { // ROUND 9
+                                    let data = '';
+                                    // A chunk of data has been recieved.
+                                    res9.on('data', (chunk) => {
+                                      data += chunk;
+                                    });
+                                    // The whole response has been received. Print out the result.
+                                    res9.on('end', () => {
+
+                                      json.understand_prompt_translated = JSON.parse(`"${data}"`);
+
+                                      response.send(json)
+                                    });
+
+                                  }).on("error", (err) => {
+                                    console.log("Error: " + err.message);
+                                  });
                                 });
 
                               }).on("error", (err) => {

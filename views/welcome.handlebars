@@ -59,7 +59,7 @@
       <!-- Choose Language -->
       <div class="ui form box-element">
         <div class="tiny field">
-          <label id="language-1"><img class="icon" src="img/language.svg"/>Language</label>
+          <label id="language-1" style="text-align:center"><img class="icon" src="img/language.svg"/>Language</label>
           <select class="ui person-1 search dropdown" id="person-1-language-input">
             <option value="">Select Language</option>
             <option value="af">Afrikaans</option>
@@ -208,7 +208,7 @@
       <div id="person-1-report-error" class="box-element" style="text-align: center;bottom:-10; left:0;">
         <div class="ui form">
           <div class="field">
-            <label>Do you understand what the other person is saying?</label>
+            <label id="person-1-understand-prompt">Do you understand what the other person is saying?</label>
           </div>
           <div class="ui buttons">
             <button id="person-1-understands" class="ui compact positive button">Yes</button>
@@ -274,7 +274,7 @@
       <!-- Choose Language -->
       <div class="ui form box-element">
         <div class="tiny field">
-          <label id="language-2"><img class="icon" src="img/language.svg"/>Language</label>
+          <label id="language-2" style="text-align:center"><img class="icon" src="img/language.svg"/>Language</label>
           <select class="ui person-2 search dropdown" id="person-2-language-input">
             <option value="">Select Language</option>
             <option value="af">Afrikaans</option>
@@ -423,7 +423,7 @@
       <div id="person-2-report-error" class="box-element" style="text-align: center;bottom:-10; left:0;">
         <div class="ui form">
           <div class="field">
-            <label>Do you understand what the other person is saying?</label>
+            <label id="person-2-understand-prompt">Do you understand what the other person is saying?</label>
           </div>
           <div class="ui buttons">
             <button id="person-2-understands" class="ui compact positive button">Yes</button>
@@ -514,6 +514,11 @@
 
 <script>
 
+function keepScrolledDown() {
+  var chatbox = document.querySelector(".ui.raised.text.container.segment.wrapper");
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
+
 $('#info-button').click(function() {
   $('.ui.modal')
   .modal('show')
@@ -565,6 +570,8 @@ function initMap() {
       $(`#person1-panel-${person_1_map_num}`).css('position','relative');
 
       person_1_map_num += 1;
+
+      keepScrolledDown();
     })
 
     $('#person-2-send-gmaps').click(function() {
@@ -589,6 +596,8 @@ function initMap() {
       $(`#person2-panel-${person_2_map_num}`).css('position','relative');
 
       person_2_map_num += 1;
+
+      keepScrolledDown();
     })
   });
 }
@@ -656,6 +665,7 @@ $('#person-1-language-input').change(function() {
     $('#directions-1').text(data.directions_translated);
     $('#streetview-label-1').text(data.streetview_translated);
     $('#sendmsg-1').text(data.sendmsg_translated);
+    $('#person-1-understand-prompt').text(data.understand_prompt_translated);
 
     var person_1_language_full = $('div.ui.person-1.dropdown.selection > div.text').text();
     $('#language-1').html('<img class="icon" src="img/language.svg"/>Language: ' + `<span style="color:#FFA726;">` + person_1_language_full + '</span>');
@@ -681,6 +691,7 @@ $('#person-2-language-input').change(function() {
     $('#directions-2').text(data.directions_translated);
     $('#streetview-label-2').text(data.streetview_translated);
     $('#sendmsg-2').text(data.sendmsg_translated);
+    $('#person-2-understand-prompt').text(data.understand_prompt_translated);
 
     var person_2_language_full = $('div.ui.person-2.dropdown.selection > div.text').text();
     $('#language-2').html('<img class="icon" src="img/language.svg"/>Language: ' + `<span style="color:#42A5F5;">` + person_2_language_full + '</span>');
@@ -720,6 +731,8 @@ $('#person-1-submit-request').click(function() {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
     $('#chatbox').append(`<div class="from-them"><p><i class="ui question icon"></i>&nbsp;${res}<p/><p>${start_location}&nbsp;<i class="ui chevron circle right icon"></i>&nbsp;${end_location}</p></div><div class="clear"></div>`);
+
+    keepScrolledDown();
   });
 })
 
@@ -736,6 +749,8 @@ $('#person-2-submit-request').click(function() {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
     $('#chatbox').append(`<div class="from-me"><p><i class="ui question icon"></i>&nbsp;${res}<p/><p>${start_location}&nbsp;<i class="ui chevron circle right icon"></i>&nbsp;${end_location}</p></div><div class="clear"></div>`);
+
+    keepScrolledDown();
   });
 })
 
@@ -748,6 +763,8 @@ $('#person-1-submit-message').click(function() {
   // if person 2 has entered a language, proceed
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
     $('#chatbox').append('<div class="from-them"><p><i class="ui chat icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+
+    keepScrolledDown();
   });
 
 })
@@ -760,6 +777,8 @@ $('#person-2-submit-message').click(function() {
 
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
     $('#chatbox').append('<div class="from-me"><p><i class="ui chat icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+
+    keepScrolledDown();
   });
 })
 
@@ -769,6 +788,8 @@ $('#person-1-understands').click(function() {
 
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
     $('#chatbox').append('<div class="from-them success-translation"><p><i class="ui smile icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+
+    keepScrolledDown();
   });
 });
 
@@ -778,6 +799,8 @@ $('#person-1-doesnotunderstand').click(function() {
 
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
     $('#chatbox').append('<div class="from-them error-translation"><p><i class="ui frown icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+
+    keepScrolledDown();
   });
 });
 
@@ -787,6 +810,8 @@ $('#person-2-understands').click(function() {
 
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
     $('#chatbox').append('<div class="from-me success-translation"><p><i class="ui smile icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+
+    keepScrolledDown();
   });
 });
 
@@ -796,6 +821,8 @@ $('#person-2-doesnotunderstand').click(function() {
 
   $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
     $('#chatbox').append('<div class="from-me error-translation"><p><i class="ui frown icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
+
+    keepScrolledDown();
   });
 });
 
