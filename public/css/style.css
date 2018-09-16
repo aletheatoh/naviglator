@@ -68,6 +68,7 @@ body {
   display: inline-block;
   width: 50%;
   padding:0;
+  padding-bottom: 3px;
   font-size: 13px;
   position: fixed;
   overflow-y: auto;
