@@ -12,6 +12,8 @@ const http = require("http");
 
 var request = require('request');
 
+require('dotenv').load();
+
 var name = 'name';
 
 /**
@@ -79,7 +81,7 @@ app.get('/translate-controls', (request, response) => {
     sendmsg_translated: ''
   }
 
-  http.get('http://localhost:3000/translate?input=ask&lang=' + lang, (res1) => { // ROUND 1
+  http.get('http://naviglator.herokuapp.com/translate?input=ask&lang=' + lang, (res1) => { // ROUND 1
     let data = '';
     // A chunk of data has been recieved.
     res1.on('data', (chunk) => {
@@ -90,7 +92,7 @@ app.get('/translate-controls', (request, response) => {
       json.ask_translated = JSON.parse(`"${data}"`);
 
       // Start location
-      http.get('http://localhost:3000/translate?input=start location&lang=' + lang, (res2) => { // ROUND 2
+      http.get('http://naviglator.herokuapp.com/translate?input=start location&lang=' + lang, (res2) => { // ROUND 2
         let data = '';
         // A chunk of data has been recieved.
         res2.on('data', (chunk) => {
@@ -102,7 +104,7 @@ app.get('/translate-controls', (request, response) => {
           json.start_translated = JSON.parse(`"${data}"`);
 
           // End location
-          http.get('http://localhost:3000/translate?input=end location&lang=' + lang, (res3) => { // ROUND 3
+          http.get('http://naviglator.herokuapp.com/translate?input=end location&lang=' + lang, (res3) => { // ROUND 3
             let data = '';
             // A chunk of data has been recieved.
             res3.on('data', (chunk) => {
@@ -114,7 +116,7 @@ app.get('/translate-controls', (request, response) => {
               json.end_translated = JSON.parse(`"${data}"`);
 
               // Send
-              http.get('http://localhost:3000/translate?input=send&lang=' + lang, (res4) => { // ROUND 4
+              http.get('http://naviglator.herokuapp.com/translate?input=send&lang=' + lang, (res4) => { // ROUND 4
                 let data = '';
                 // A chunk of data has been recieved.
                 res4.on('data', (chunk) => {
@@ -126,7 +128,7 @@ app.get('/translate-controls', (request, response) => {
                   json.send_translated = JSON.parse(`"${data}"`);
 
                   // Directions
-                  http.get('http://localhost:3000/translate?input=directions&lang=' + lang, (res5) => { // ROUND 5
+                  http.get('http://naviglator.herokuapp.com/translate?input=directions&lang=' + lang, (res5) => { // ROUND 5
                     let data = '';
                     // A chunk of data has been recieved.
                     res5.on('data', (chunk) => {
@@ -138,7 +140,7 @@ app.get('/translate-controls', (request, response) => {
                       json.directions_translated = JSON.parse(`"${data}"`);
 
                       // Street View
-                      http.get('http://localhost:3000/translate?input=street view&lang=' + lang, (res6) => { // ROUND 6
+                      http.get('http://naviglator.herokuapp.com/translate?input=street view&lang=' + lang, (res6) => { // ROUND 6
                         let data = '';
                         // A chunk of data has been recieved.
                         res6.on('data', (chunk) => {
@@ -150,7 +152,7 @@ app.get('/translate-controls', (request, response) => {
                           json.streetview_translated = JSON.parse(`"${data}"`);
 
                           // Chat
-                          http.get('http://localhost:3000/translate?input=chat&lang=' + lang, (res7) => { // ROUND 7
+                          http.get('http://naviglator.herokuapp.com/translate?input=chat&lang=' + lang, (res7) => { // ROUND 7
                             let data = '';
                             // A chunk of data has been recieved.
                             res7.on('data', (chunk) => {
@@ -162,7 +164,7 @@ app.get('/translate-controls', (request, response) => {
                               json.chat_translated = JSON.parse(`"${data}"`);
 
                               // Send message
-                              http.get('http://localhost:3000/translate?input=send a message&lang=' + lang, (res8) => { // ROUND 8
+                              http.get('http://naviglator.herokuapp.com/translate?input=send a message&lang=' + lang, (res8) => { // ROUND 8
                                 let data = '';
                                 // A chunk of data has been recieved.
                                 res8.on('data', (chunk) => {
@@ -173,7 +175,7 @@ app.get('/translate-controls', (request, response) => {
 
                                   json.sendmsg_translated = JSON.parse(`"${data}"`);
 
-                                  http.get('http://localhost:3000/translate?input=Do you understand what the other person is saying&lang=' + lang, (res9) => { // ROUND 9
+                                  http.get('http://naviglator.herokuapp.com/translate?input=Do you understand what the other person is saying&lang=' + lang, (res9) => { // ROUND 9
                                     let data = '';
                                     // A chunk of data has been recieved.
                                     res9.on('data', (chunk) => {

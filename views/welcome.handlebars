@@ -746,7 +746,7 @@ $('#person-1-language-input').change(function() {
   $('#person-1-language-prompt').css('display','none');
 
   person_1_language = $('#person-1-language-input').val();
-  $.get( "http://localhost:3000/translate-controls?lang=" + person_1_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate-controls?lang=` + person_1_language, function( data ) {
 
     // translate control buttons
     $('#ask-1').text(data.ask_translated);
@@ -772,7 +772,7 @@ $('#person-2-language-input').change(function() {
   $('#person-2-language-prompt').css('display','none');
 
   person_2_language = $('#person-2-language-input').val();
-  $.get( "http://localhost:3000/translate-controls?lang=" + person_2_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate-controls?lang=` + person_2_language, function( data ) {
 
     // translate control buttons
     $('#ask-2').text(data.ask_translated);
@@ -801,7 +801,7 @@ $('#person-1-submit-request').click(function() {
   person_1_end_location = end_location;
 
   var request = 'I need directions to get from ' + '123' + ' to ' + '456';
-  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_2_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + request + '&lang=' + person_2_language, function( data ) {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
     $('#chatbox').append(`<div class="from-them"><p><i class="ui question icon"></i>&nbsp;${res}<p/><p>${start_location}&nbsp;<i class="ui chevron circle right icon"></i>&nbsp;${end_location}</p></div><div class="clear"></div>`);
@@ -819,7 +819,7 @@ $('#person-2-submit-request').click(function() {
   person_2_end_location = end_location;
 
   var request = 'I need directions to get from ' + '123' + ' to ' + '456';
-  $.get( "http://localhost:3000/translate?input=" + request + '&lang=' + person_1_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + request + '&lang=' + person_1_language, function( data ) {
     var res = data.replace('123','<b>' + start_location + '</b>');
     var res = res.replace('456','<b>' + end_location + '</b>');
     $('#chatbox').append(`<div class="from-me"><p><i class="ui question icon"></i>&nbsp;${res}<p/><p>${start_location}&nbsp;<i class="ui chevron circle right icon"></i>&nbsp;${end_location}</p></div><div class="clear"></div>`);
@@ -835,7 +835,7 @@ $('#person-1-submit-message').click(function() {
   $('#person-1-message').val('');
 
   // if person 2 has entered a language, proceed
-  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + input + '&lang=' + person_2_language, function( data ) {
     $('#chatbox').append('<div class="from-them"><p><i class="ui chat icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
 
     keepScrolledDown();
@@ -849,7 +849,7 @@ $('#person-2-submit-message').click(function() {
   var input = $('#person-2-message').val();
   $('#person-2-message').val('');
 
-  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + input + '&lang=' + person_1_language, function( data ) {
     $('#chatbox').append('<div class="from-me"><p><i class="ui chat icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
 
     keepScrolledDown();
@@ -860,7 +860,7 @@ $('#person-1-understands').click(function() {
 
   var input = "I understand what you are saying";
 
-  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + input + '&lang=' + person_2_language, function( data ) {
     $('#chatbox').append('<div class="from-them success-translation"><p><i class="ui smile icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
 
     keepScrolledDown();
@@ -871,7 +871,7 @@ $('#person-1-doesnotunderstand').click(function() {
 
   var input = "I do not understand what you are saying";
 
-  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_2_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + input + '&lang=' + person_2_language, function( data ) {
     $('#chatbox').append('<div class="from-them error-translation"><p><i class="ui frown icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
 
     keepScrolledDown();
@@ -882,7 +882,7 @@ $('#person-2-understands').click(function() {
 
   var input = "I understand what you are saying";
 
-  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + input + '&lang=' + person_1_language, function( data ) {
     $('#chatbox').append('<div class="from-me success-translation"><p><i class="ui smile icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
 
     keepScrolledDown();
@@ -893,7 +893,7 @@ $('#person-2-doesnotunderstand').click(function() {
 
   var input = "I do not understand what you are saying";
 
-  $.get( "http://localhost:3000/translate?input=" + input + '&lang=' + person_1_language, function( data ) {
+  $.get( `http://naviglator.herokuapp.com/translate?input=` + input + '&lang=' + person_1_language, function( data ) {
     $('#chatbox').append('<div class="from-me error-translation"><p><i class="ui frown icon"></i>&nbsp;' + data + '</p></div><div class="clear"></div>');
 
     keepScrolledDown();
