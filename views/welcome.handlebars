@@ -175,12 +175,12 @@
       </div>
 
       <div id="send-directions-box-1" class="box-element" style="display:none;text-align:center">
-        <button class="ui tiny button" id="person-1-send-gmaps">
-          <i class="location arrow icon"></i>
+        <button class="ui tiny icon button" id="person-1-send-gmaps">
+          <img style="width:20px;" src="img/gps.svg"/>
           <span id="directions-1">Directions</span>
         </button>
-        <button class="ui tiny button" id="person-1-send-streetview">
-          <i class="street view icon"></i>
+        <button class="ui tiny icon button" id="person-1-send-streetview">
+          <img style="width:20px;" src="img/street-view.svg"/>
           <span id="streetview-label-1">Street View</span>
         </button>
       </div>
@@ -390,12 +390,12 @@
       </div>
 
       <div id="send-directions-box-2" class="box-element" style="display:none;text-align:center">
-        <button class="ui tiny button" id="person-2-send-gmaps">
-          <i class="location arrow icon"></i>
+        <button class="ui tiny icon button" id="person-2-send-gmaps">
+          <img style="width:20px;" src="img/gps.svg"/>
           <span id="directions-2">Directions</span>
         </button>
-        <button class="ui tiny button" id="person-2-send-streetview">
-          <i class="street view icon"></i>
+        <button class="ui tiny icon button" id="person-2-send-streetview">
+          <img style="width:20px;" src="img/street-view.svg"/>
           <span id="streetview-label-2">Street View</span>
         </button>
       </div>
@@ -524,7 +524,7 @@
           <i class="ui big yellow ellipsis horizontal icon"></i>
         </div>
         <div class="description">
-          <p>Each user's messages will be translated into the other user’s primary language. Please note that the start/end locations for the directions and street view services has been hardcoded in this prototype.</p>
+          <p>Each user's messages will be translated into the other user’s primary language. <b>Note: </b>the start/end locations for the directions and street view services has been hardcoded in this prototype.</p>
         </div>
       </div>
       <div class="actions">
@@ -543,7 +543,7 @@
 <div id="outer">
   <div class="g-map" id="map-clone"></div>
   <div id="right-panel"></div>
-  <div id="pano-clone"></div>
+  <div class="sv" id="street-view"></div>
 </div>
 
 <script>
@@ -559,13 +559,71 @@ $('#info-button').click(function() {
 ;
 })
 
+var panorama;
+
+function init() {
+   initMap();
+   initialize();
+}
+
+function initialize() {
+
+  // if person 1 sends streetview
+  $('#person-1-send-streetview').click(function() {
+
+    var cloned_sv = $('#street-view').clone();
+    cloned_sv.addClass('sv');
+
+    $('#chatbox').append(`<div class="from-them" id="person1-sv-${person_1_streetview_num}"></div><div class="clear"></div>`);
+    $(`#person1-sv-${person_1_streetview_num}`).append(cloned_sv);
+    cloned_sv.css('display','');
+    cloned_sv.css('position','relative');
+    cloned_sv.attr('id',`p1-sv-${person_1_streetview_num}`);
+
+    panorama = new google.maps.StreetViewPanorama(
+    document.getElementById(`p1-sv-${person_1_streetview_num}`),
+    {
+      position: {lat: 35.952591, lng: -78.996490},
+      pov: {heading: 165, pitch: 0},
+      zoom: 1
+    });
+
+    person_1_streetview_num += 1;
+    keepScrolledDown();
+  });
+
+  // if person 2 sends streetview
+  $('#person-2-send-streetview').click(function() {
+
+    var cloned_sv = $('#street-view').clone();
+    cloned_sv.addClass('sv');
+
+    $('#chatbox').append(`<div class="from-me" id="person2-sv-${person_2_streetview_num}"></div><div class="clear"></div>`);
+    $(`#person2-sv-${person_2_streetview_num}`).append(cloned_sv);
+    cloned_sv.css('display','');
+    cloned_sv.css('position','relative');
+    cloned_sv.attr('id',`p2-sv-${person_2_streetview_num}`);
+
+    panorama = new google.maps.StreetViewPanorama(
+    document.getElementById(`p2-sv-${person_2_streetview_num}`),
+    {
+      position: {lat: 35.952591, lng: -78.996490},
+      pov: {heading: 165, pitch: 0},
+      zoom: 1
+    });
+
+    person_2_streetview_num += 1;
+    keepScrolledDown();
+  });
+
+
+}
+
 // map setup
 function initMap() {
 
   start = 'Duke University';
   end = "Namu Durham";
-
-  console.log('location is now' + start);
 
   var chicago = new google.maps.LatLng(41.850033, -87.6500523);
   // iterate through all maps
@@ -733,24 +791,6 @@ $('#person-2-language-input').change(function() {
   });
 })
 
-// if person 1 sends streetview
-// $('#person-1-send-streetview').click(function() {
-//   var berkeley = {lat: 37.869085, lng: -122.254775};
-//
-//   $('#chatbox').append(`<div class="from-them" id="streetview-${person_1_streetview_num}"></div><div class="clear"></div>`);
-//
-//   var cloned_pano = $('#pano-clone').clone();
-//   // cloned_pano.css('display','');
-//   cloned_pano.addClass('pano');
-//   cloned_pano.attr('id', `streetview-pano-${person_1_streetview_num}`);
-//   $(`#streetview-${person_1_streetview_num}`).append(cloned_pano);
-//
-//   var sv = new google.maps.StreetViewService();
-//   panorama = new google.maps.StreetViewPanorama(document.getElementById(`streetview-pano-${person_1_streetview_num}`));
-//   sv.getPanorama({location: berkeley, radius: 50}, processSVData);
-//
-//   person_1_streetview_num += 1;
-// });
 
 // if person 1 requests for directions
 $('#person-1-submit-request').click(function() {
@@ -874,8 +914,11 @@ $('.message .close')
 ;
 
 </script>
-<script async defer
+<!-- <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8JPMWkUVF6XwKAyuwRLZmQcSH88EruB4&callback=initMap">
-    </script>
+    </script> -->
+<script async defer
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbZzqAx7aXsBeZ2Y2HYicmSzN7L4fzKgA&callback=init">
+</script>
 
 </html>

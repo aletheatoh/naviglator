@@ -18,7 +18,7 @@ body {
   position: relative;
 }
 
-#map-clone, #pano-clone, #right-panel {
+#map-clone, #right-panel, #street-view {
   position: absolute;
   height: 100px;
   width: 100px;
@@ -55,7 +55,7 @@ body {
   position: relative;
 }
 
-.icon {
+img.icon {
   width: 22px;
   margin-right: 8px;
 }
@@ -75,9 +75,15 @@ body {
   height: 470px;
 }
 
-.g-map, .pano {
+.g-map {
   width: 300px;
   height: 100px;
+  position: relative;
+}
+
+.sv {
+  width: 380px;
+  height: 300px;
   position: relative;
 }
 
@@ -132,10 +138,10 @@ body {
 	border-radius:25px;
 	float: right;
   margin-top: 12px;
-  max-width: 400px;
+  max-width: 420px;
   /* max-height: 400px */
   text-align: left;
-  z-index:1;
+  /* z-index:1; */
 }
 
 .clear {clear: both}
